@@ -1,0 +1,22 @@
+{
+  "version": "0.2",
+  "deadzone_left": 0.08,
+  "deadzone_right": 0.08,
+  "trigger_threshold": 0.0,
+  "invert_left_y": false,
+  "invert_right_y": false,
+  "button_map": {
+    "cross": "A",
+    "circle": "B",
+    "square": "X",
+    "triangle": "Y",
+    "l1": "LB",
+    "r1": "RB",
+    "l3": "LS",
+    "r3": "RS",
+    "share": "BACK",
+    "options": "START",
+    "ps_button": "GUIDE",
+    "touchpad": null
+  }
+}
