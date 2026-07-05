@@ -1,11 +1,12 @@
 """
-DualSense PC Mapper v0.2
+DualSense PC Mapper v0.3
 ========================
 Free & open-source PS5 controller mapper for Windows.
 Reads your DualSense and emulates an Xbox 360 controller.
 
 Usage:
     python main.py              Start mapping with current config
+    python main.py --gui        Launch GUI with controller visualization
     python main.py --test       Test mode (show raw inputs)
     python main.py --config     Configure button remapping & dead zones
     python main.py --show       Show current config
@@ -27,7 +28,7 @@ LOGO = r"""
  | | | | | | |/ _` | \___ \ / _ \ '_ \/ __|/ _ \
  | |_| | |_| | (_| | |___) |  __/ | | \__ \  __/
  |____/ \__,_|\__,_|_|____/ \___|_| |_|___/\___|
-          PC Mapper v0.2 | Free & Open Source
+          PC Mapper v0.3 | Free & Open Source
   github.com/chinsovandara/dualsense-pc-mapper
 """
 
@@ -192,7 +193,10 @@ def run_mapper():
 
 
 def main():
-    if "--test" in sys.argv:
+    if "--gui" in sys.argv:
+        from gui import launch_gui
+        launch_gui()
+    elif "--test" in sys.argv:
         run_test_mode()
     elif "--config" in sys.argv:
         run_config()

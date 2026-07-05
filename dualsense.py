@@ -196,6 +196,63 @@ class DualSense:
         s.touchpad = bool(buttons3 & 0x02)
         s.mute = bool(buttons3 & 0x04)
 
+    def set_led_color(self, red, green, blue):
+        """Set the light bar color (0-255 per channel). USB only."""
+        if not self.device:
+            return False
+
+        if self.is_bluetooth:
+            return self._set_led_bluetooth(red, green, blue)
+
+        # USB output report: 48 bytes, report ID 0x02
+        report = bytearray(48)
+        report[0] = 0x02   # Report ID
+        report[1] = 0xFF   # Flags 0: enable all features
+        report[2] = 0x04   # Flags 1: enable lightbar
+        report[45] = min(255, max(0, int(red)))
+        report[46] = min(255, max(0, int(green)))
+        report[47] = min(255, max(0, int(blue)))
+
+        self.device.write(bytes(report))
+        return True
+
+    def _set_led_bluetooth(self, red, green, blue):
+        """Set LED color over Bluetooth (different report format)."""
+        try:
+            report = bytearray(78)
+            report[0] = 0x31   # BT report ID
+            report[1] = 0x02   # Sequence tag
+            report[2] = 0xFF   # Flags 0
+            report[3] = 0x04   # Flags 1: lightbar
+            report[46] = min(255, max(0, int(red)))
+            report[47] = min(255, max(0, int(green)))
+            report[48] = min(255, max(0, int(blue)))
+
+            # Bluetooth needs CRC32 at the end
+            import binascii
+            crc = binascii.crc32(bytes(report[:-4]))
+            report[-4:] = crc.to_bytes(4, byteorder="little")
+
+            self.device.write(bytes(report))
+            return True
+        except Exception:
+            return False
+
+    def set_rumble(self, left_motor, right_motor):
+        """Set rumble intensity (0-255 per motor). USB only for now."""
+        if not self.device or self.is_bluetooth:
+            return False
+
+        report = bytearray(48)
+        report[0] = 0x02
+        report[1] = 0x03   # Flags 0: enable rumble motors
+        report[2] = 0x00
+        report[3] = min(255, max(0, int(right_motor)))
+        report[4] = min(255, max(0, int(left_motor)))
+
+        self.device.write(bytes(report))
+        return True
+
     def __enter__(self):
         return self
 

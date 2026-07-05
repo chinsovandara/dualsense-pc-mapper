@@ -9,7 +9,7 @@
     "cross": "A",
     "circle": "B",
     "square": "X",
-    "triangle": "Y",
+    "triangle": "LS",
     "l1": "LB",
     "r1": "RB",
     "l3": "LS",
@@ -18,5 +18,10 @@
     "options": "START",
     "ps_button": "GUIDE",
     "touchpad": null
-  }
+  },
+  "led_color": [
+    128,
+    0,
+    255
+  ]
 }
