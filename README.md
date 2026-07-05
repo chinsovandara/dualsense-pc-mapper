@@ -53,10 +53,6 @@ python main.py
 python main.py --test
 ```
 
-### Download .exe (No Python Needed)
-
-Check the [Releases](https://github.com/chinsovandara/dualsense-pc-mapper/releases) page for a standalone .exe.
-
 ## Connecting Your Controller
 
 **USB:** Just plug it in.
@@ -83,7 +79,7 @@ Too many apps charge money for basic controller support. This project is 100% fr
 
 ## Contributing
 
-Pull requests welcome! Check the [chinsovandara](https://github.com/YOUR_USERNAME/dualsense-pc-mapper/issues) tab for things to work on.
+Pull requests welcome!
 
 ## License
 
